@@ -158,9 +158,10 @@
     <p class="hero-sub">the burning crusade anniversary 2026</p>
     
     <div class="region-tabs">
-      <button class="tab active" data-region="eu-cet">eu (cet)</button>
-      <button class="tab" data-region="eu-gmt">eu (gmt)</button>
-      <button class="tab" data-region="us">us</button>
+      <button class="tab" data-region="eu-cet">eu (cet)</button>
+      <button class="tab active" data-region="eu-gmt">eu (gmt)</button>
+      <button class="tab" data-region="us-pst">us (pst)</button>
+      <button class="tab" data-region="us-est">us (est)</button>
     </div>
 
     <div class="countdown-section">
@@ -215,17 +216,25 @@
         tz: 'GMT',
         tzFull: 'Greenwich Mean Time'
       },
-      us: {
+      'us-pst': {
         maintenanceStart: new Date('2026-01-12T15:00:00-08:00'),
         maintenanceEnd: new Date('2026-01-13T15:00:00-08:00'),
         prepatch: new Date('2026-01-13T15:00:00-08:00'),
         launch: new Date('2026-02-05T15:00:00-08:00'), // Feb 5 3pm PST
         tz: 'PST',
         tzFull: 'Pacific Standard Time'
+      },
+      'us-est': {
+        maintenanceStart: new Date('2026-01-12T18:00:00-05:00'),
+        maintenanceEnd: new Date('2026-01-13T18:00:00-05:00'),
+        prepatch: new Date('2026-01-13T18:00:00-05:00'),
+        launch: new Date('2026-02-05T18:00:00-05:00'), // Feb 5 6pm EST
+        tz: 'EST',
+        tzFull: 'Eastern Standard Time'
       }
     };
 
-    let currentRegion = 'eu-cet';
+    let currentRegion = 'eu-gmt';
 
     function formatCountdown(ms) {
       if (ms <= 0) return 'LIVE NOW!';
