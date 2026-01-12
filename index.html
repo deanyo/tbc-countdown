@@ -158,7 +158,8 @@
     <p class="hero-sub">the burning crusade anniversary 2026</p>
     
     <div class="region-tabs">
-      <button class="tab active" data-region="eu">eu</button>
+      <button class="tab active" data-region="eu-cet">eu (cet)</button>
+      <button class="tab" data-region="eu-gmt">eu (gmt)</button>
       <button class="tab" data-region="us">us</button>
     </div>
 
@@ -198,13 +199,21 @@
     
     // TBC Launch: February 5, 2026 at 3:00 PM PST globally
     const EVENTS = {
-      eu: {
+      'eu-cet': {
         maintenanceStart: new Date('2026-01-13T06:00:00+01:00'),
         maintenanceEnd: new Date('2026-01-14T06:00:00+01:00'),
         prepatch: new Date('2026-01-14T06:00:00+01:00'),
         launch: new Date('2026-02-06T00:00:00+01:00'), // Feb 5 3pm PST = Feb 6 12am CET
         tz: 'CET',
         tzFull: 'Central European Time'
+      },
+      'eu-gmt': {
+        maintenanceStart: new Date('2026-01-13T05:00:00+00:00'),
+        maintenanceEnd: new Date('2026-01-14T05:00:00+00:00'),
+        prepatch: new Date('2026-01-14T05:00:00+00:00'),
+        launch: new Date('2026-02-05T23:00:00+00:00'), // Feb 5 3pm PST = Feb 5 11pm GMT
+        tz: 'GMT',
+        tzFull: 'Greenwich Mean Time'
       },
       us: {
         maintenanceStart: new Date('2026-01-12T15:00:00-08:00'),
@@ -216,7 +225,7 @@
       }
     };
 
-    let currentRegion = 'eu';
+    let currentRegion = 'eu-cet';
 
     function formatCountdown(ms) {
       if (ms <= 0) return 'LIVE NOW!';
