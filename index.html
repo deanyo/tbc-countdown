@@ -14,13 +14,15 @@
       --bg-0: #14111b;
       --bg-1: #1a1621;
       --bg-2: #231f32;
+      --bg-3: #2a2540;
       --ink: #eee9fc;
       --muted: #9a90b3;
       --line: #3f3951;
       --accent: #b3f4f3;
       --accent-2: #e192ef;
       --accent-3: #b1f2a7;
-      --fel-green: #1eff00;
+      --warn: #f0c27b;
+      --danger: #e965a5;
       --shadow: rgba(0, 0, 0, 0.35);
     }
     * { box-sizing: border-box; }
@@ -59,8 +61,7 @@
       font-size: 24px;
       letter-spacing: -0.02em;
       margin: 0 0 4px 0;
-      color: var(--fel-green);
-      text-shadow: 0 0 20px rgba(30, 255, 0, 0.4);
+      color: var(--accent-3);
     }
     .hero-sub {
       margin: 0 0 24px 0;
@@ -84,9 +85,9 @@
       text-transform: lowercase;
     }
     .tab.active {
-      border-color: var(--fel-green);
-      color: var(--fel-green);
-      background: rgba(30, 255, 0, 0.05);
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(179, 244, 243, 0.05);
     }
     .countdown-section {
       background: var(--bg-2);
@@ -107,8 +108,7 @@
       letter-spacing: 0.02em;
     }
     .countdown.live {
-      color: var(--fel-green);
-      text-shadow: 0 0 15px rgba(30, 255, 0, 0.5);
+      color: var(--accent-3);
       animation: pulse 2s ease-in-out infinite;
     }
     @keyframes pulse {
