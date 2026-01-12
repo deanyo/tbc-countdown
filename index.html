@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -8,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 256 256'><rect width='256' height='256' fill='%231a1621'/><text x='128' y='170' text-anchor='middle' font-size='140'>🔥</text></svg>">
+  <link rel="icon"
+    href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 256 256'><rect width='256' height='256' fill='%231a1621'/><text x='128' y='170' text-anchor='middle' font-size='140'>🔥</text></svg>">
   <style>
     :root {
       --bg-0: #14111b;
@@ -25,7 +27,11 @@
       --danger: #e965a5;
       --shadow: rgba(0, 0, 0, 0.35);
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       font-family: "JetBrains Mono", monospace;
@@ -40,6 +46,7 @@
       padding: 24px;
       text-transform: lowercase;
     }
+
     body::before {
       content: "";
       position: fixed;
@@ -51,28 +58,33 @@
       pointer-events: none;
       opacity: 0.4;
     }
+
     .shell {
       max-width: 500px;
       width: 100%;
       position: relative;
       z-index: 1;
     }
+
     .hero-title {
       font-size: 24px;
       letter-spacing: -0.02em;
       margin: 0 0 4px 0;
       color: var(--accent-3);
     }
+
     .hero-sub {
       margin: 0 0 24px 0;
       color: var(--muted);
       font-size: 12px;
     }
+
     .region-tabs {
       display: flex;
       gap: 8px;
       margin-bottom: 16px;
     }
+
     .tab {
       padding: 8px 16px;
       background: var(--bg-2);
@@ -84,11 +96,13 @@
       font-size: 12px;
       text-transform: lowercase;
     }
+
     .tab.active {
       border-color: var(--accent);
       color: var(--accent);
       background: rgba(179, 244, 243, 0.05);
     }
+
     .countdown-section {
       background: var(--bg-2);
       border: 1px solid var(--line);
@@ -96,30 +110,43 @@
       padding: 16px;
       margin-bottom: 12px;
     }
+
     .countdown-label {
       font-size: 13px;
       color: var(--accent-2);
       margin-bottom: 8px;
     }
+
     .countdown {
       font-size: 28px;
       font-weight: 600;
       color: var(--ink);
       letter-spacing: 0.02em;
     }
+
     .countdown.live {
       color: var(--accent-3);
       animation: pulse 2s ease-in-out infinite;
     }
+
     @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.7;
+      }
     }
+
     .countdown-date {
       font-size: 11px;
       color: var(--muted);
       margin-top: 6px;
     }
+
     .info {
       font-size: 11px;
       color: var(--muted);
@@ -129,34 +156,40 @@
       border: 1px solid var(--line);
       border-radius: 8px;
     }
+
     .info-row {
       display: flex;
       justify-content: space-between;
       padding: 4px 0;
     }
+
     .info-row:not(:last-child) {
       border-bottom: 1px solid var(--line);
     }
+
     .footer {
       margin-top: 24px;
       text-align: center;
       font-size: 11px;
       color: var(--muted);
     }
+
     .footer a {
       color: var(--muted);
       text-decoration: none;
     }
+
     .footer a:hover {
       color: var(--accent);
     }
   </style>
 </head>
+
 <body>
   <div class="shell">
     <h1 class="hero-title">~/tbc-countdown</h1>
     <p class="hero-sub">the burning crusade anniversary 2026</p>
-    
+
     <div class="region-tabs">
       <button class="tab" data-region="eu-cet">eu (cet)</button>
       <button class="tab active" data-region="eu-gmt">eu (gmt)</button>
@@ -197,7 +230,7 @@
     // Prepatch live after maintenance: 14/01/2026 06:00 CET
     // US: Maintenance 12/01/2026 15:00 PST to 13/01/2026 15:00 PST (24hr)
     // Prepatch live after maintenance: 13/01/2026 15:00 PST
-    
+
     // TBC Launch: February 5, 2026 at 3:00 PM PST globally
     const EVENTS = {
       'eu-cet': {
@@ -206,7 +239,8 @@
         prepatch: new Date('2026-01-14T06:00:00+01:00'),
         launch: new Date('2026-02-06T00:00:00+01:00'), // Feb 5 3pm PST = Feb 6 12am CET
         tz: 'CET',
-        tzFull: 'Central European Time'
+        tzFull: 'Central European Time',
+        ianaZone: 'Europe/Paris'
       },
       'eu-gmt': {
         maintenanceStart: new Date('2026-01-13T05:00:00+00:00'),
@@ -214,7 +248,8 @@
         prepatch: new Date('2026-01-14T05:00:00+00:00'),
         launch: new Date('2026-02-05T23:00:00+00:00'), // Feb 5 3pm PST = Feb 5 11pm GMT
         tz: 'GMT',
-        tzFull: 'Greenwich Mean Time'
+        tzFull: 'Greenwich Mean Time',
+        ianaZone: 'Europe/London'
       },
       'us-pst': {
         maintenanceStart: new Date('2026-01-12T15:00:00-08:00'),
@@ -222,7 +257,8 @@
         prepatch: new Date('2026-01-13T15:00:00-08:00'),
         launch: new Date('2026-02-05T15:00:00-08:00'), // Feb 5 3pm PST
         tz: 'PST',
-        tzFull: 'Pacific Standard Time'
+        tzFull: 'Pacific Standard Time',
+        ianaZone: 'America/Los_Angeles'
       },
       'us-est': {
         maintenanceStart: new Date('2026-01-12T18:00:00-05:00'),
@@ -230,7 +266,8 @@
         prepatch: new Date('2026-01-13T18:00:00-05:00'),
         launch: new Date('2026-02-05T18:00:00-05:00'), // Feb 5 6pm EST
         tz: 'EST',
-        tzFull: 'Eastern Standard Time'
+        tzFull: 'Eastern Standard Time',
+        ianaZone: 'America/New_York'
       }
     };
 
@@ -246,49 +283,47 @@
       return `${d}d ${h}h ${m}m ${sec}s`;
     }
 
-    function formatDate(date, tz) {
-      const day = date.getDate();
-      const month = date.toLocaleString('en-GB', { month: 'short' });
-      const year = date.getFullYear();
-      const hours = String(date.getHours()).padStart(2, '0');
-      const minutes = String(date.getMinutes()).padStart(2, '0');
-      const weekday = date.toLocaleString('en-GB', { weekday: 'short' });
-      return `${weekday}, ${day} ${month} ${year}, ${hours}:${minutes} ${tz}`;
+    function formatDate(date, tz, ianaZone) {
+      const options = {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false,
+        timeZone: ianaZone
+      };
+      const formatted = date.toLocaleString('en-GB', options);
+      return `${formatted} ${tz}`;
     }
 
-    function formatMaintenanceWindow(start, end, tz) {
-      const startDay = String(start.getDate()).padStart(2, '0');
-      const startMonth = String(start.getMonth() + 1).padStart(2, '0');
-      const startHours = String(start.getHours()).padStart(2, '0');
-      const startMins = String(start.getMinutes()).padStart(2, '0');
-      
-      const endDay = String(end.getDate()).padStart(2, '0');
-      const endMonth = String(end.getMonth() + 1).padStart(2, '0');
-      const endHours = String(end.getHours()).padStart(2, '0');
-      const endMins = String(end.getMinutes()).padStart(2, '0');
-      
-      return `${startDay}/${startMonth}, ${startHours}:${startMins} - ${endDay}/${endMonth}, ${endHours}:${endMins} ${tz}`;
+    function formatMaintenanceWindow(start, end, tz, ianaZone) {
+      const options = { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: ianaZone };
+      const startStr = start.toLocaleString('en-GB', options).replace(',', '');
+      const endStr = end.toLocaleString('en-GB', options).replace(',', '');
+      return `${startStr} - ${endStr} ${tz}`;
     }
 
     function updateCountdowns() {
       const now = Date.now();
       const events = EVENTS[currentRegion];
-      
+
       const prepatchMs = events.prepatch.getTime() - now;
       const launchMs = events.launch.getTime() - now;
-      
+
       const prepatchEl = document.getElementById('prepatch-countdown');
       const launchEl = document.getElementById('launch-countdown');
-      
+
       prepatchEl.textContent = formatCountdown(prepatchMs);
       prepatchEl.classList.toggle('live', prepatchMs <= 0);
-      
+
       launchEl.textContent = formatCountdown(launchMs);
       launchEl.classList.toggle('live', launchMs <= 0);
-      
-      document.getElementById('prepatch-date').textContent = formatDate(events.prepatch, events.tz);
-      document.getElementById('launch-date').textContent = formatDate(events.launch, events.tz);
-      document.getElementById('maintenance-window').textContent = formatMaintenanceWindow(events.maintenanceStart, events.maintenanceEnd, events.tz);
+
+      document.getElementById('prepatch-date').textContent = formatDate(events.prepatch, events.tz, events.ianaZone);
+      document.getElementById('launch-date').textContent = formatDate(events.launch, events.tz, events.ianaZone);
+      document.getElementById('maintenance-window').textContent = formatMaintenanceWindow(events.maintenanceStart, events.maintenanceEnd, events.tz, events.ianaZone);
       document.getElementById('timezone').textContent = events.tzFull;
     }
 
@@ -306,4 +341,5 @@
     setInterval(updateCountdowns, 1000);
   </script>
 </body>
+
 </html>
