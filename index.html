@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#1a1621">
+  <title>TBC Anniversary Countdown</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='256' height='256' viewBox='0 0 256 256'><rect width='256' height='256' fill='%231a1621'/><text x='128' y='170' text-anchor='middle' font-size='140'>🔥</text></svg>">
+  <style>
+    :root {
+      --bg-0: #14111b;
+      --bg-1: #1a1621;
+      --bg-2: #231f32;
+      --ink: #eee9fc;
+      --muted: #9a90b3;
+      --line: #3f3951;
+      --accent: #b3f4f3;
+      --accent-2: #e192ef;
+      --accent-3: #b1f2a7;
+      --fel-green: #1eff00;
+      --shadow: rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "JetBrains Mono", monospace;
+      color: var(--ink);
+      background: radial-gradient(1000px 600px at 10% -20%, #2b2436, transparent),
+        radial-gradient(700px 500px at 90% -10%, #1c2a35, transparent),
+        linear-gradient(160deg, var(--bg-0), var(--bg-1) 40%, var(--bg-0));
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-transform: lowercase;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background-image:
+        linear-gradient(transparent 95%, rgba(255, 255, 255, 0.03)),
+        linear-gradient(90deg, transparent 95%, rgba(255, 255, 255, 0.02));
+      background-size: 40px 40px;
+      pointer-events: none;
+      opacity: 0.4;
+    }
+    .shell {
+      max-width: 500px;
+      width: 100%;
+      position: relative;
+      z-index: 1;
+    }
+    .hero-title {
+      font-size: 24px;
+      letter-spacing: -0.02em;
+      margin: 0 0 4px 0;
+      color: var(--fel-green);
+      text-shadow: 0 0 20px rgba(30, 255, 0, 0.4);
+    }
+    .hero-sub {
+      margin: 0 0 24px 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+    .region-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .tab {
+      padding: 8px 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      color: var(--muted);
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 12px;
+      text-transform: lowercase;
+    }
+    .tab.active {
+      border-color: var(--fel-green);
+      color: var(--fel-green);
+      background: rgba(30, 255, 0, 0.05);
+    }
+    .countdown-section {
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .countdown-label {
+      font-size: 13px;
+      color: var(--accent-2);
+      margin-bottom: 8px;
+    }
+    .countdown {
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+    .countdown.live {
+      color: var(--fel-green);
+      text-shadow: 0 0 15px rgba(30, 255, 0, 0.5);
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+    .countdown-date {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+    .info {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--bg-2);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+    }
+    .info-row:not(:last-child) {
+      border-bottom: 1px solid var(--line);
+    }
+    .footer {
+      margin-top: 24px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .footer a {
+      color: var(--muted);
+      text-decoration: none;
+    }
+    .footer a:hover {
+      color: var(--accent);
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <h1 class="hero-title">~/tbc-countdown</h1>
+    <p class="hero-sub">the burning crusade anniversary 2026</p>
+    
+    <div class="region-tabs">
+      <button class="tab active" data-region="eu">eu</button>
+      <button class="tab" data-region="us">us</button>
+    </div>
+
+    <div class="countdown-section">
+      <div class="countdown-label">prepatch goes live</div>
+      <div class="countdown" id="prepatch-countdown">--d --h --m --s</div>
+      <div class="countdown-date" id="prepatch-date"></div>
+    </div>
+
+    <div class="countdown-section">
+      <div class="countdown-label">tbc launch</div>
+      <div class="countdown" id="launch-countdown">--d --h --m --s</div>
+      <div class="countdown-date" id="launch-date"></div>
+    </div>
+
+    <div class="info">
+      <div class="info-row">
+        <span>maintenance window</span>
+        <span id="maintenance-window"></span>
+      </div>
+      <div class="info-row">
+        <span>timezone</span>
+        <span id="timezone"></span>
+      </div>
+    </div>
+
+    <div class="footer">
+      <a href="https://github.com/deanyo/tbc-countdown" target="_blank">src</a>
+    </div>
+  </div>
+
+  <script>
+    // EU: Maintenance 13/01/2026 06:00 CET to 14/01/2026 06:00 CET (24hr)
+    // Prepatch live after maintenance: 14/01/2026 06:00 CET
+    // US: Maintenance 12/01/2026 15:00 PST to 13/01/2026 15:00 PST (24hr)
+    // Prepatch live after maintenance: 13/01/2026 15:00 PST
+    
+    // TBC Launch dates TBD - using placeholder 2 weeks after prepatch
+    const EVENTS = {
+      eu: {
+        maintenanceStart: new Date('2026-01-13T06:00:00+01:00'),
+        maintenanceEnd: new Date('2026-01-14T06:00:00+01:00'),
+        prepatch: new Date('2026-01-14T06:00:00+01:00'),
+        launch: new Date('2026-01-28T00:00:00+01:00'), // placeholder - update when announced
+        tz: 'CET',
+        tzFull: 'Central European Time'
+      },
+      us: {
+        maintenanceStart: new Date('2026-01-12T15:00:00-08:00'),
+        maintenanceEnd: new Date('2026-01-13T15:00:00-08:00'),
+        prepatch: new Date('2026-01-13T15:00:00-08:00'),
+        launch: new Date('2026-01-27T15:00:00-08:00'), // placeholder - update when announced
+        tz: 'PST',
+        tzFull: 'Pacific Standard Time'
+      }
+    };
+
+    let currentRegion = 'eu';
+
+    function formatCountdown(ms) {
+      if (ms <= 0) return 'LIVE NOW!';
+      const s = Math.floor(ms / 1000);
+      const d = Math.floor(s / 86400);
+      const h = Math.floor((s % 86400) / 3600);
+      const m = Math.floor((s % 3600) / 60);
+      const sec = s % 60;
+      return `${d}d ${h}h ${m}m ${sec}s`;
+    }
+
+    function formatDate(date, tz) {
+      return date.toLocaleString('en-GB', {
+        weekday: 'short',
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false
+      }) + ` ${tz}`;
+    }
+
+    function formatMaintenanceWindow(start, end, tz) {
+      const startStr = start.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+      const endStr = end.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+      return `${startStr} - ${endStr} ${tz}`;
+    }
+
+    function updateCountdowns() {
+      const now = Date.now();
+      const events = EVENTS[currentRegion];
+      
+      const prepatchMs = events.prepatch.getTime() - now;
+      const launchMs = events.launch.getTime() - now;
+      
+      const prepatchEl = document.getElementById('prepatch-countdown');
+      const launchEl = document.getElementById('launch-countdown');
+      
+      prepatchEl.textContent = formatCountdown(prepatchMs);
+      prepatchEl.classList.toggle('live', prepatchMs <= 0);
+      
+      launchEl.textContent = formatCountdown(launchMs);
+      launchEl.classList.toggle('live', launchMs <= 0);
+      
+      document.getElementById('prepatch-date').textContent = formatDate(events.prepatch, events.tz);
+      document.getElementById('launch-date').textContent = formatDate(events.launch, events.tz) + ' (tbd)';
+      document.getElementById('maintenance-window').textContent = formatMaintenanceWindow(events.maintenanceStart, events.maintenanceEnd, events.tz);
+      document.getElementById('timezone').textContent = events.tzFull;
+    }
+
+    function setRegion(region) {
+      currentRegion = region;
+      document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.region === region));
+      updateCountdowns();
+    }
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => setRegion(tab.dataset.region));
+    });
+
+    updateCountdowns();
+    setInterval(updateCountdowns, 1000);
+  </script>
+</body>
+</html>
