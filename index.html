@@ -158,8 +158,9 @@
     <p class="hero-sub">the burning crusade anniversary 2026</p>
     
     <div class="region-tabs">
+      <button class="tab active" data-region="auto">auto</button>
       <button class="tab" data-region="eu-cet">eu (cet)</button>
-      <button class="tab active" data-region="eu-gmt">eu (gmt)</button>
+      <button class="tab" data-region="eu-gmt">eu (gmt)</button>
       <button class="tab" data-region="us-pst">us (pst)</button>
       <button class="tab" data-region="us-est">us (est)</button>
     </div>
@@ -200,6 +201,14 @@
     
     // TBC Launch: February 5, 2026 at 3:00 PM PST globally
     const EVENTS = {
+      'auto': {
+        maintenanceStart: new Date('2026-01-13T15:00:00-08:00'), // US maintenance time as base
+        maintenanceEnd: new Date('2026-01-14T15:00:00-08:00'),
+        prepatch: new Date('2026-01-14T15:00:00-08:00'),
+        launch: new Date('2026-02-05T15:00:00-08:00'),
+        tz: 'local',
+        tzFull: 'Local Time'
+      },
       'eu-cet': {
         maintenanceStart: new Date('2026-01-13T06:00:00+01:00'),
         maintenanceEnd: new Date('2026-01-14T06:00:00+01:00'),
@@ -234,7 +243,7 @@
       }
     };
 
-    let currentRegion = 'eu-gmt';
+    let currentRegion = 'auto';
 
     function formatCountdown(ms) {
       if (ms <= 0) return 'LIVE NOW!';
@@ -247,21 +256,43 @@
     }
 
     function formatDate(date, tz) {
-      return date.toLocaleString('en-GB', {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false
-      }) + ` ${tz}`;
+      if (tz === 'local') {
+        return date.toLocaleString('en-GB', {
+          weekday: 'short',
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          hour12: false
+        });
+      }
+      const day = date.getDate();
+      const month = date.toLocaleString('en-GB', { month: 'short' });
+      const year = date.getFullYear();
+      const hours = String(date.getHours()).padStart(2, '0');
+      const minutes = String(date.getMinutes()).padStart(2, '0');
+      const weekday = date.toLocaleString('en-GB', { weekday: 'short' });
+      return `${weekday}, ${day} ${month} ${year}, ${hours}:${minutes} ${tz}`;
     }
 
     function formatMaintenanceWindow(start, end, tz) {
-      const startStr = start.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
-      const endStr = end.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
-      return `${startStr} - ${endStr} ${tz}`;
+      if (tz === 'local') {
+        const startStr = start.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+        const endStr = end.toLocaleString('en-GB', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
+        return `${startStr} - ${endStr}`;
+      }
+      const startDay = String(start.getDate()).padStart(2, '0');
+      const startMonth = String(start.getMonth() + 1).padStart(2, '0');
+      const startHours = String(start.getHours()).padStart(2, '0');
+      const startMins = String(start.getMinutes()).padStart(2, '0');
+      
+      const endDay = String(end.getDate()).padStart(2, '0');
+      const endMonth = String(end.getMonth() + 1).padStart(2, '0');
+      const endHours = String(end.getHours()).padStart(2, '0');
+      const endMins = String(end.getMinutes()).padStart(2, '0');
+      
+      return `${startDay}/${startMonth}, ${startHours}:${startMins} - ${endDay}/${endMonth}, ${endHours}:${endMins} ${tz}`;
     }
 
     function updateCountdowns() {
