@@ -196,13 +196,13 @@
     // US: Maintenance 12/01/2026 15:00 PST to 13/01/2026 15:00 PST (24hr)
     // Prepatch live after maintenance: 13/01/2026 15:00 PST
     
-    // TBC Launch dates TBD - using placeholder 2 weeks after prepatch
+    // TBC Launch: February 5, 2026 at 3:00 PM PST globally
     const EVENTS = {
       eu: {
         maintenanceStart: new Date('2026-01-13T06:00:00+01:00'),
         maintenanceEnd: new Date('2026-01-14T06:00:00+01:00'),
         prepatch: new Date('2026-01-14T06:00:00+01:00'),
-        launch: new Date('2026-01-28T00:00:00+01:00'), // placeholder - update when announced
+        launch: new Date('2026-02-06T00:00:00+01:00'), // Feb 5 3pm PST = Feb 6 12am CET
         tz: 'CET',
         tzFull: 'Central European Time'
       },
@@ -210,7 +210,7 @@
         maintenanceStart: new Date('2026-01-12T15:00:00-08:00'),
         maintenanceEnd: new Date('2026-01-13T15:00:00-08:00'),
         prepatch: new Date('2026-01-13T15:00:00-08:00'),
-        launch: new Date('2026-01-27T15:00:00-08:00'), // placeholder - update when announced
+        launch: new Date('2026-02-05T15:00:00-08:00'), // Feb 5 3pm PST
         tz: 'PST',
         tzFull: 'Pacific Standard Time'
       }
@@ -263,7 +263,7 @@
       launchEl.classList.toggle('live', launchMs <= 0);
       
       document.getElementById('prepatch-date').textContent = formatDate(events.prepatch, events.tz);
-      document.getElementById('launch-date').textContent = formatDate(events.launch, events.tz) + ' (tbd)';
+      document.getElementById('launch-date').textContent = formatDate(events.launch, events.tz);
       document.getElementById('maintenance-window').textContent = formatMaintenanceWindow(events.maintenanceStart, events.maintenanceEnd, events.tz);
       document.getElementById('timezone').textContent = events.tzFull;
     }
