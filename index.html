@@ -210,6 +210,12 @@
       <div class="countdown-date" id="launch-date"></div>
     </div>
 
+    <div class="countdown-section">
+      <div class="countdown-label">raids unlock</div>
+      <div class="countdown" id="raids-countdown">--d --h --m --s</div>
+      <div class="countdown-date" id="raids-date"></div>
+    </div>
+
     <div class="info">
       <div class="info-row">
         <span>maintenance window</span>
@@ -233,12 +239,14 @@
     // Prepatch live after maintenance: 13/01/2026 15:00 PST
 
     // TBC Launch: February 5, 2026 at 3:00 PM PST globally
+    // Raids Unlock: February 19, 2026 at 3:00 PM PST globally
     const EVENTS = {
       'eu-cet': {
         maintenanceStart: new Date('2026-01-13T06:00:00+01:00'),
         maintenanceEnd: new Date('2026-01-14T06:00:00+01:00'),
         prepatch: new Date('2026-01-14T06:00:00+01:00'),
         launch: new Date('2026-02-06T00:00:00+01:00'), // Feb 5 3pm PST = Feb 6 12am CET
+        raids: new Date('2026-02-20T00:00:00+01:00'), // Feb 19 3pm PST = Feb 20 12am CET
         tz: 'CET',
         tzFull: 'Central European Time',
         ianaZone: 'Europe/Paris'
@@ -248,6 +256,7 @@
         maintenanceEnd: new Date('2026-01-14T05:00:00+00:00'),
         prepatch: new Date('2026-01-14T05:00:00+00:00'),
         launch: new Date('2026-02-05T23:00:00+00:00'), // Feb 5 3pm PST = Feb 5 11pm GMT
+        raids: new Date('2026-02-19T23:00:00+00:00'), // Feb 19 3pm PST = Feb 19 11pm GMT
         tz: 'GMT',
         tzFull: 'Greenwich Mean Time',
         ianaZone: 'Europe/London'
@@ -257,6 +266,7 @@
         maintenanceEnd: new Date('2026-01-13T15:00:00-08:00'),
         prepatch: new Date('2026-01-13T15:00:00-08:00'),
         launch: new Date('2026-02-05T15:00:00-08:00'), // Feb 5 3pm PST
+        raids: new Date('2026-02-19T15:00:00-08:00'), // Feb 19 3pm PST
         tz: 'PST',
         tzFull: 'Pacific Standard Time',
         ianaZone: 'America/Los_Angeles'
@@ -266,6 +276,7 @@
         maintenanceEnd: new Date('2026-01-13T18:00:00-05:00'),
         prepatch: new Date('2026-01-13T18:00:00-05:00'),
         launch: new Date('2026-02-05T18:00:00-05:00'), // Feb 5 6pm EST
+        raids: new Date('2026-02-19T18:00:00-05:00'), // Feb 19 6pm EST
         tz: 'EST',
         tzFull: 'Eastern Standard Time',
         ianaZone: 'America/New_York'
@@ -312,9 +323,11 @@
 
       const prepatchMs = events.prepatch.getTime() - now;
       const launchMs = events.launch.getTime() - now;
+      const raidsMs = events.raids.getTime() - now;
 
       const prepatchEl = document.getElementById('prepatch-countdown');
       const launchEl = document.getElementById('launch-countdown');
+      const raidsEl = document.getElementById('raids-countdown');
 
       prepatchEl.textContent = formatCountdown(prepatchMs);
       prepatchEl.classList.toggle('live', prepatchMs <= 0);
@@ -322,8 +335,12 @@
       launchEl.textContent = formatCountdown(launchMs);
       launchEl.classList.toggle('live', launchMs <= 0);
 
+      raidsEl.textContent = formatCountdown(raidsMs);
+      raidsEl.classList.toggle('live', raidsMs <= 0);
+
       document.getElementById('prepatch-date').textContent = formatDate(events.prepatch, events.tz, events.ianaZone);
       document.getElementById('launch-date').textContent = formatDate(events.launch, events.tz, events.ianaZone);
+      document.getElementById('raids-date').textContent = formatDate(events.raids, events.tz, events.ianaZone);
       document.getElementById('maintenance-window').textContent = formatMaintenanceWindow(events.maintenanceStart, events.maintenanceEnd, events.tz, events.ianaZone);
       document.getElementById('timezone').textContent = events.tzFull;
     }
