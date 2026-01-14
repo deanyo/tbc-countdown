@@ -127,12 +127,19 @@
       color: var(--warn);
       font-weight: 600;
       text-decoration: none;
-      border-bottom: 1px solid rgba(240, 194, 123, 0.5);
+      text-decoration: underline;
+      text-decoration-thickness: 2px;
+      text-underline-offset: 2px;
     }
 
     .banner a:hover {
       color: var(--accent);
-      border-bottom-color: var(--accent);
+      text-decoration-color: var(--accent);
+    }
+
+    .banner a:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
     }
 
     .countdown-label {
@@ -215,7 +222,10 @@
     <p class="hero-sub">the burning crusade anniversary 2026</p>
 
     <div class="banner">
-      while the prepatch is live, the tbc character boosts are currently not working. <a href="https://www.wowhead.com/blue-tracker/topic/us/the-boost-is-not-working-2226941" target="_blank" rel="noreferrer">details</a>
+      while the prepatch is live, the tbc character boosts are currently not working.
+      <a href="https://www.wowhead.com/blue-tracker/topic/us/the-boost-is-not-working-2226941" target="_blank" rel="noreferrer">details -&gt;</a>
+      <span>update:</span>
+      <a href="https://x.com/FwoiblesWoW/status/2011344732442812423" target="_blank" rel="noreferrer">tom ellis on x -&gt;</a>
     </div>
 
     <div class="region-tabs">
