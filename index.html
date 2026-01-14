@@ -112,6 +112,29 @@
       margin-bottom: 12px;
     }
 
+    .banner {
+      margin: 16px 0;
+      padding: 12px;
+      background: rgba(240, 194, 123, 0.12);
+      border: 1px solid rgba(240, 194, 123, 0.45);
+      border-radius: 8px;
+      color: var(--warn);
+      font-size: 11px;
+      line-height: 1.5;
+    }
+
+    .banner a {
+      color: var(--warn);
+      font-weight: 600;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(240, 194, 123, 0.5);
+    }
+
+    .banner a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
     .countdown-label {
       font-size: 13px;
       color: var(--accent-2);
@@ -190,6 +213,10 @@
   <div class="shell">
     <h1 class="hero-title">~/tbc-countdown</h1>
     <p class="hero-sub">the burning crusade anniversary 2026</p>
+
+    <div class="banner">
+      while the prepatch is live, the tbc character boosts are currently not working. <a href="https://www.wowhead.com/blue-tracker/topic/us/the-boost-is-not-working-2226941" target="_blank" rel="noreferrer">details</a>
+    </div>
 
     <div class="region-tabs">
       <button class="tab" data-region="eu-cet">eu (cet)</button>
